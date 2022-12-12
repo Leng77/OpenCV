@@ -1,15 +1,123 @@
 <ul>
-	<li><a href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%8F%91%E5%B1%95%E5%8E%86%E5%8F%B2">计算机视觉发展历史</a></li>
-	<li><a href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%9A%84%E4%B8%BB%E8%A6%81%E4%BB%BB%E5%8A%A1">计算机视觉的主要任务</a></li>
-	<li><a href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF">计算机视觉应用场景</a></li>
-	</ul>
-	<h1>计算机视觉发展历史</h1>
-	<h1>计算机视觉的主要任务</h1>
-	<h1>计算机视觉应用场景</h1>
-	<blockquote>
-	<p>自动驾驶/辅助驾驶
-	机器视觉AI+机构/工业质检智能
-	安防监控-人脸识别/火灾监控/异常监控
-	其他更多行业</p>
-	</blockquote>
-	
+<li><a href="#认识计算机视觉">认识计算机视觉</a>
+<ul>
+<li><a href="#计算机视觉发展历史">计算机视觉发展历史</a></li>
+<li><a href="#计算机视觉的主要任务">计算机视觉的主要任务</a></li>
+<li><a href="#计算机视觉应用场景">计算机视觉应用场景</a></li>
+</ul></li>
+<li><a href="#计算机视觉框架">计算机视觉框架</a></li>
+<li><a href="#opencv框架">OpenCV框架</a></li>
+<li><a href="#图像读取与显示">图像读取与显示</a>
+<ul>
+<li><a href="#图像理解">图像理解</a></li>
+<li><a href="#图像读取与显示-1">图像读取与显示</a></li>
+</ul></li>
+</ul>
+<h1 id="认识计算机视觉">认识计算机视觉</h1>
+<h2 id="计算机视觉发展历史">计算机视觉发展历史</h2>
+<h2 id="计算机视觉的主要任务">计算机视觉的主要任务</h2>
+<h2 id="计算机视觉应用场景">计算机视觉应用场景</h2>
+<blockquote>
+<p>自动驾驶/辅助驾驶</p>
+</blockquote>
+<blockquote>
+<p>机器视觉AI+机构/工业质检智能</p>
+</blockquote>
+<blockquote>
+<p>安防监控-人脸识别/火灾监控/异常监控</p>
+</blockquote>
+<blockquote>
+<p>其他更多行业</p>
+</blockquote>
+<h1 id="计算机视觉框架">计算机视觉框架</h1>
+<blockquote>
+<p>传统学习计算机视觉框架</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>SimpleCV</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>BoofCV</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Dlib</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>JavaCV</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>深度学习计算机视觉框架</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Caffe</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Tensorflow</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Pytorch</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Paddlepaddle</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Keras</p>
+</blockquote>
+</blockquote>
+<h1 id="opencv框架">OpenCV框架</h1>
+<blockquote>
+<p>安装好opencv库后在intel网站初步试运行结果如下:</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<figure>
+<img src="result.png" alt="结果" />
+<figcaption aria-hidden="true">结果</figcaption>
+</figure>
+</blockquote>
+</blockquote>
+<h1 id="图像读取与显示">图像读取与显示</h1>
+<h2 id="图像理解">图像理解</h2>
+<blockquote>
+<p>灰色图像 <font color="#dd0000">单通道</font><br /></p>
+</blockquote>
+<blockquote>
+<p>彩色图像 <font color="#dd0000">三通道(blue green
+red)</font><br /></p>
+</blockquote>
+<h2 id="图像读取与显示-1">图像读取与显示</h2>
+<blockquote>
+<p>imread函数 <font color="#dd0000">读取图像</font><br /></p>
+</blockquote>
+<blockquote>
+<p>imshow函数 <font color="#dd0000">显示图像</font><br /></p>
+</blockquote>
+<blockquote>
+<p>cv.waitKey(0)
+<font color="#dd0000">表示一直等待(图像一直显示),直到任意一个键盘操作</font><br /></p>
+</blockquote>
+<blockquote>
+<p>cv.waitKey(1000)
+<font color="#dd0000">表示等待一千毫秒，即一秒</font><br /></p>
+</blockquote>
+<blockquote>
+<p>cv.destroyAllWindows()
+<font color="#dd0000">表示清除所有窗口</font><br /></p>
+</blockquote>
