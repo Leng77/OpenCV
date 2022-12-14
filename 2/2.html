@@ -1,0 +1,154 @@
+<ul>
+<li><a href="#像色彩空间转换">像色彩空间转换</a></li>
+<li><a href="#图像对象的创建与赋值">图像对象的创建与赋值</a>
+<ul>
+<li><a href="#创建图像">创建图像</a></li>
+<li><a href="#图像创建代码训练">图像创建代码训练</a></li>
+</ul></li>
+<li><a href="#图像像素的读写操作">图像像素的读写操作</a>
+<ul>
+<li><a href="#图像像素">图像像素</a></li>
+<li><a href="#像素遍历">像素遍历</a></li>
+<li><a href="#像素色彩反转代码训练">像素色彩反转代码训练</a></li>
+</ul></li>
+<li><a href="#图像算术操作">图像算术操作</a>
+<ul>
+<li><a href="#算术操作">算术操作</a>
+<ul>
+<li><a href="#支持函数">支持函数</a></li>
+<li><a href="#mask参数">Mask参数</a></li>
+</ul></li>
+<li><a href="#算术操作代码训练">算术操作代码训练</a></li>
+</ul></li>
+</ul>
+<h1 id="像色彩空间转换">像色彩空间转换</h1>
+<blockquote>
+<p>RGB色彩空间,设备独立</p>
+</blockquote>
+<blockquote>
+<p>HSV色彩空间,对计算机友好,区分各种色彩</p>
+</blockquote>
+<blockquote>
+<p>YCrCb,Y分量表示信息,CrCb可以被压缩</p>
+</blockquote>
+<blockquote>
+<p>RGB是计算机显示器的标准支持色彩系统</p>
+</blockquote>
+<blockquote>
+<p>RGB的取值范围0~255</p>
+</blockquote>
+<blockquote>
+<p>HSV取值范围H:0~180,SV:0~255</p>
+</blockquote>
+<blockquote>
+<p>代码演示色彩空间转换为hsv与ycrcb</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<figure>
+<img src="./../transform.png" alt="jpg" />
+<figcaption aria-hidden="true">jpg</figcaption>
+</figure>
+</blockquote>
+</blockquote>
+<h1 id="图像对象的创建与赋值">图像对象的创建与赋值</h1>
+<h2 id="创建图像">创建图像</h2>
+<blockquote>
+<p>opencv-python中一切图像都是numpy array,创建图像就是创建numpy
+array</p>
+</blockquote>
+<h2 id="图像创建代码训练">图像创建代码训练</h2>
+<blockquote>
+<figure>
+<img src="../np_demo.png" alt="np_demo" />
+<figcaption aria-hidden="true">np_demo</figcaption>
+</figure>
+</blockquote>
+<h1 id="图像像素的读写操作">图像像素的读写操作</h1>
+<h2 id="图像像素">图像像素</h2>
+<blockquote>
+<p>像素实际大小:dpi x inches = 像素总数</p>
+</blockquote>
+<blockquote>
+<p>术语dpi:每英寸的点数目,96dpi – 针对打印</p>
+</blockquote>
+<blockquote>
+<p>术语ppi: 每英寸的像素数目 – 针对图像分辨率</p>
+</blockquote>
+<h2 id="像素遍历">像素遍历</h2>
+<blockquote>
+<p>像素遍历本质就是numpy数组访问</p>
+</blockquote>
+<blockquote>
+<p>假设变量image</p>
+</blockquote>
+<blockquote>
+<p>获取图像维度信息: image.shape</p>
+</blockquote>
+<blockquote>
+<p>图像访问像素: image[row, col]</p>
+</blockquote>
+<blockquote>
+<p>图像赋值像素: image[row, col] = (b,g,r)</p>
+</blockquote>
+<h2 id="像素色彩反转代码训练">像素色彩反转代码训练</h2>
+<figure>
+<img src="../fanzhuan.png" alt="fanzhuan" />
+<figcaption aria-hidden="true">fanzhuan</figcaption>
+</figure>
+<h1 id="图像算术操作">图像算术操作</h1>
+<h2 id="算术操作">算术操作</h2>
+<blockquote>
+<p>前提:两个图片进行图像算术操作,二者的图像大小必须一致</p>
+</blockquote>
+<h3 id="支持函数">支持函数</h3>
+<blockquote>
+<blockquote>
+<p>cv.add(src1, src2[, dst[, mask[, dtype]]]) -&gt;dst
+ <font color="#dd0000">加法</font></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>cv.subtract(src1,src2[,dst[,mask[,dtype]]])-&gt;dst <font color="#dd0000">减法</font></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>cv.multiply(src1,src2[,dst[,scale[,dtype]]])-&gt;dst <font color="#dd0000">乘法</font></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>cv.divide(src1, src2[, dst[, scale[,
+dtype]]])-&gt;dst <font color="#dd0000">除法</font></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p><font color="#dd0000">参数说明</font></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p><font color="#dd0000">src1 &amp; src2表示图像</font></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p><font color="#dd0000">加法，保证不越界：saturate(src1 +
+src2)-》0~255</font>
+ <font color="#c564">(如果超过255,则会设定为255,低于0，则会设置为0)</font></p>
+</blockquote>
+</blockquote>
+<h3 id="mask参数">Mask参数</h3>
+<blockquote>
+<blockquote>
+<p>观察发现，在加法跟减法的函数里会有mask参数，mask参数就是一个矩阵，只要有值(值为1)的区域才会进行加减法，而其他地方全为0，算术结果与mask为0的地方一致，mask为1的地方进行算术操作</p>
+</blockquote>
+</blockquote>
+<h2 id="算术操作代码训练">算术操作代码训练</h2>
+<figure>
+<img src="../added.png" alt="added" />
+<figcaption aria-hidden="true">added</figcaption>
+</figure>
