@@ -1,0 +1,239 @@
+<ul>
+<li><a href="#滚动条操作">滚动条操作</a>
+<ul>
+<li><a href="#事件响应函数">事件响应函数</a></li>
+<li><a href="#创建窗口函数">创建窗口函数</a></li>
+<li><a href="#代码操作演示">代码操作演示:</a></li>
+</ul></li>
+<li><a href="#键盘响应操作">键盘响应操作</a>
+<ul>
+<li><a href="#键盘响应事件">键盘响应事件</a></li>
+<li><a href="#响应不同的键盘操作">响应不同的键盘操作</a></li>
+</ul></li>
+<li><a href="#代码操作演示-1">代码操作演示</a></li>
+<li><a href="#自带颜色操作">自带颜色操作</a>
+<ul>
+<li><a href="#gamma校正">Gamma校正</a></li>
+<li><a href="#opencv中lut支持">OpenCV中LUT支持</a></li>
+<li><a href="#代码操作演练">代码操作演练</a></li>
+</ul></li>
+<li><a href="#通道分离与合并">通道分离与合并</a>
+<ul>
+<li><a href="#分离函数">分离函数</a></li>
+<li><a href="#合并与混合">合并与混合</a></li>
+<li><a href="#通道阈值">通道阈值</a></li>
+<li><a href="#代码操作演练-1">代码操作演练</a></li>
+</ul></li>
+</ul>
+<h1 id="滚动条操作">滚动条操作</h1>
+<h2 id="事件响应函数">事件响应函数</h2>
+<blockquote>
+<p>typedef void(* cv::TrackbarCallback) (int pos, void *userdata)</p>
+</blockquote>
+<blockquote>
+<p>完成事件响应函数的声明与实现</p>
+</blockquote>
+<blockquote>
+<p>def trackbar_callback (pos): print(pos)</p>
+</blockquote>
+<h2 id="创建窗口函数">创建窗口函数</h2>
+<blockquote>
+<p>cv.namedWindow(winname [, flags]) -&gt; None</p>
+</blockquote>
+<blockquote>
+<p>参数: winname表示窗口标题</p>
+</blockquote>
+<blockquote>
+<p>参数flags支持的flag有:</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>WINDOW_NORMAL – 可以调整窗口大小</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>WINDOW_AUTOSIZE – 根据图像大小自动适应，不可调</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>WINDOW_KEEPRATIO – 可以保持比例窗口，调整大小</p>
+</blockquote>
+</blockquote>
+<h2 id="代码操作演示">代码操作演示:</h2>
+<p><img src="../../data/tisheng.png" alt="tisheng" /> <img
+src="../../data/jiangdi.png" alt="降低" /></p>
+<h1 id="键盘响应操作">键盘响应操作</h1>
+<h2 id="键盘响应事件">键盘响应事件</h2>
+<blockquote>
+<p>cv.waitKey( [, delay] ) -&gt;retval</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>delay如果没有声明或者delay=0,表示一直阻塞</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>delay大于0，表示阻塞指定毫秒数</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Retval返回的对应键盘键值，注意:在不同的操作系统中可能会有差异！</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>典型的retval = 27是ESC按键</p>
+</blockquote>
+</blockquote>
+<h2 id="响应不同的键盘操作">响应不同的键盘操作</h2>
+<blockquote>
+<p>检查返回键值，根据不同键值完成不同操作</p>
+</blockquote>
+<blockquote>
+<p>推荐使用if-elif-else, switch-case方式python3.10支持</p>
+</blockquote>
+<h1 id="代码操作演示-1">代码操作演示</h1>
+<p><img src="../../data/Key1.png" alt="Key1" /> <img
+src="../../data/Key2.png" alt="Key2" /> <img src="../../data/Key3.png"
+alt="Key3" /> <img src="../../data/Key0.png" alt="Key0" /></p>
+<h1 id="自带颜色操作">自带颜色操作</h1>
+<h2 id="gamma校正">Gamma校正</h2>
+<blockquote>
+<p>像素值取值范围在0~255之间，每一个值对应一个输出值，这样映射关系，可以先建立查找表LUT</p>
+</blockquote>
+<blockquote>
+<p>根据输入得像素值作为index，在LUT中直接映射读取得到gamma校正之后得值</p>
+</blockquote>
+<blockquote>
+<p>对256x256大小的图像，计算量对比：</p>
+</blockquote>
+<blockquote>
+<p>不应用找表计算gamma - 65536次，</p>
+</blockquote>
+<blockquote>
+<p>应用查找表计算gamma – 256次</p>
+</blockquote>
+<h2 id="opencv中lut支持">OpenCV中LUT支持</h2>
+<blockquote>
+<p>色彩表</p>
+</blockquote>
+<blockquote>
+<p>cv.applyColorMap(src, colormap[, dst]) -&gt;dst</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>第一个参数输入图像</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>第二个参数是颜色表</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>dst返回图像</p>
+</blockquote>
+</blockquote>
+<h2 id="代码操作演练">代码操作演练</h2>
+<blockquote>
+<p><font color="#dd0000">定义一个array里面存放各种LUT,定义一个滚动条,将每一个LUT放入pplyColorMap中,每拉动一个滚动条对应一个LUT</font></p>
+</blockquote>
+<blockquote>
+<p><font color="#dd0000">代码如下:</font></p>
+</blockquote>
+<pre><code>def task_3():
+    task=np.array([cv.COLORMAP_AUTUMN,cv.COLORMAP_JET,cv.COLORMAP_RAINBOW,cv.COLORMAP_OCEAN,cv.COLORMAP_SUMMER,cv.COLORMAP_SPRING,cv.COLORMAP_COOL,cv.COLORMAP_HSV,cv.COLORMAP_PINK,cv.COLORMAP_HOT,cv.COLORMAP_PARULA,cv.COLORMAP_MAGMA,cv.COLORMAP_INFERNO,cv.COLORMAP_PLASMA,cv.COLORMAP_VIRIDIS,cv.COLORMAP_TWILIGHT,cv.COLORMAP_TWILIGHT_SHIFTED,cv.COLORMAP_TURBO,cv.COLORMAP_DEEPGREEN])
+    cv.namedWindow(&quot;task_3&quot;,cv.WINDOW_KEEPRATIO)
+    image=cv.imread(&quot;C://Users//86198//Desktop//DataWhale//OpenCV//opencv//butterfly.jpg&quot;)
+    cv.createTrackbar(&quot;COLORMAP&quot;,&quot;task_3&quot;,0,19,trackbar_callback)
+    cv.imshow(&quot;task_3&quot;,image)
+    while True:
+        pos=cv.getTrackbarPos(&quot;COLORMAP&quot;,&quot;task_3&quot;)
+        dst=cv.applyColorMap(image,task[pos-1])
+        cv.imshow(&quot;task_3&quot;,dst)
+        c=cv.waitKey(1)
+        if c==27:
+            break
+    cv.waitKey(0)
+    cv.destroyAllWindows()</code></pre>
+<blockquote>
+<p><font color="#dd0000">结果如下:</font></p>
+</blockquote>
+<p><img src="../data/../../data/task_3_0.png" alt="task_3_0" /> <img
+src="../data/../../data/task_3_4.png" alt="task_3_4" /> <img
+src="../data/../../data/task_3_10.png" alt="task_3_10" /> <img
+src="../data/../../data/task_3_18.png" alt="task_3_18" /></p>
+<h1 id="通道分离与合并">通道分离与合并</h1>
+<h2 id="分离函数">分离函数</h2>
+<blockquote>
+<p>通道分离函数cv.split(m[, mv]) -&gt;mv</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>m表示输入图像,必须是多通道图像</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>mv表示输出的</p>
+</blockquote>
+</blockquote>
+<h2 id="合并与混合">合并与混合</h2>
+<blockquote>
+<p>cv.merge(mv[, dst])-&gt;dst</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>mv表示各个通道</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>cv.mixChannels(src, dst, fromTo)-&gt;dst</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>src表示输入多通道图像</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>fromTo表示通道索引</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>dst表示返回结果</p>
+</blockquote>
+</blockquote>
+<h2 id="通道阈值">通道阈值</h2>
+<blockquote>
+<p>cv.inRange( src, lowerb, upperb[, dst]) -&gt; dst</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>其中src是输入图像</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Lowerb是低值</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Upperb是高值</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>dst = (lowerb &lt; src &lt; upperb)</p>
+</blockquote>
+</blockquote>
+<h2 id="代码操作演练-1">代码操作演练</h2>
+<p><img src="../../data/inRange.png" alt="inRange" /> <img
+src="../../data/mix_channels.png" alt="mix_channels" /></p>
