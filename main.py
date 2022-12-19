@@ -1,7 +1,7 @@
 import cv2 as cv
 import numpy as np
 def color_space_demo():
-    image=cv.imread("lena.jpg")
+    image=cv.imread("C://Users//86198//Desktop//DataWhale//OpenCV//opencv//data//lena.jpg")
     cv.imshow("lena",image)
     hsv=cv.cvtColor(image,cv.COLOR_BGR2HSV)
     ycrcb=cv.cvtColor(image,cv.COLOR_BGR2YCrCb)
@@ -33,7 +33,7 @@ def numpy_demo():
 
 
 def visit_pixel_demo():
-    image=cv.imread("lena.jpg")
+    image=cv.imread("C://Users//86198//Desktop//DataWhale//OpenCV//opencv//data//lena.jpg")
     cv.imshow("lena",image)
     h,w,c=image.shape
     for row in range(0,w,1):
@@ -46,7 +46,7 @@ def visit_pixel_demo():
 
 
 def arithmetic_demo():
-    image1=cv.imread("lena.jpg")
+    image1=cv.imread("C://Users//86198//Desktop//DataWhale//OpenCV//opencv//data//lena.jpg")
     image2=np.zeros_like(image1)
     image2[:,:]=(110,0,250)
     cv.imshow("image1",image1)
@@ -66,7 +66,7 @@ def trackbar_callback(pos):
     print(pos)
 
 def trackbar_demo():
-    image=cv.imread("C://Users//86198//Desktop//DataWhale//OpenCV//opencv//butterfly.jpg")
+    image=cv.imread("C://Users//86198\Desktop//DataWhale//OpenCV//opencv//data//butterfly.jpg")
     cv.namedWindow("trackbar_demo",cv.WINDOW_KEEPRATIO)
     cv.createTrackbar("lightness","trackbar_demo",0,200,trackbar_callback)
     cv.imshow("trackbar_demo",image)
@@ -87,7 +87,7 @@ def trackbar_demo():
 
 
 def keyboard_demo():
-    image=cv.imread("C://Users//86198//Desktop//DataWhale//OpenCV//opencv//butterfly.jpg")
+    image=cv.imread("C://Users//86198\Desktop//DataWhale//OpenCV//opencv//data//butterfly.jpg")
     cv.namedWindow("keyboard_demo",cv.WINDOW_AUTOSIZE)
     cv.imshow("keyboard_demo",image)
     while True:
@@ -135,7 +135,7 @@ def lut_demo():
         print(i,"--",np.log(i/255.0))
         lut2[i]=int(np.exp(np.log(i/255.0)*gamma)*255.0)
     print(lut2)
-    image=cv.imread("C://Users//86198//Desktop//DataWhale//OpenCV//opencv//butterfly.jpg")
+    image=cv.imread("C://Users//86198\Desktop//DataWhale//OpenCV//opencv//data//butterfly.jpg")
     cv.namedWindow("butterfly_gamma",cv.WINDOW_AUTOSIZE)
     h,w,c=image.shape
     for row in range(h):
@@ -165,7 +165,7 @@ def lut_demo():
 def task_3():
     task=np.array([cv.COLORMAP_AUTUMN,cv.COLORMAP_JET,cv.COLORMAP_RAINBOW,cv.COLORMAP_OCEAN,cv.COLORMAP_SUMMER,cv.COLORMAP_SPRING,cv.COLORMAP_COOL,cv.COLORMAP_HSV,cv.COLORMAP_PINK,cv.COLORMAP_HOT,cv.COLORMAP_PARULA,cv.COLORMAP_MAGMA,cv.COLORMAP_INFERNO,cv.COLORMAP_PLASMA,cv.COLORMAP_VIRIDIS,cv.COLORMAP_TWILIGHT,cv.COLORMAP_TWILIGHT_SHIFTED,cv.COLORMAP_TURBO,cv.COLORMAP_DEEPGREEN])
     cv.namedWindow("task_3",cv.WINDOW_KEEPRATIO)
-    image=cv.imread("C://Users//86198//Desktop//DataWhale//OpenCV//opencv//butterfly.jpg")
+    image=cv.imread("C://Users//86198\Desktop//DataWhale//OpenCV//opencv//data//butterfly.jpg")
     cv.createTrackbar("COLORMAP","task_3",0,19,trackbar_callback)
     cv.imshow("task_3",image)
     while True:
@@ -180,7 +180,7 @@ def task_3():
 
 
 def channel_splits():
-    image=cv.imread("C://Users//86198//Desktop//DataWhale//OpenCV//opencv//butterfly.jpg")
+    image=cv.imread("C://Users//86198\Desktop//DataWhale//OpenCV//opencv//data//butterfly.jpg")
     cv.namedWindow("butterfly",cv.WINDOW_AUTOSIZE)
     cv.imshow("butterfly",image)
     mv=cv.split(image)
@@ -194,6 +194,72 @@ def channel_splits():
     cv.destroyAllWindows()
 
 
+def stats_demo():
+    image=cv.imread("C://Users//86198\Desktop//DataWhale//OpenCV//opencv//data//butterfly.jpg")
+    cv.imshow("butterfly",image)
+    bgr_m=cv.mean(image)
+    sub_m=np.float32(image)[:,:] -(bgr_m[0],bgr_m[1],bgr_m[2])
+    result=sub_m*0.5
+    result=result[:,:]+(bgr_m[0],bgr_m[1],bgr_m[2])
+    cv.imshow("low-contrast-butterfly",cv.convertScaleAbs(result))
+
+    result=sub_m*2.0
+    result=result[:,:]+(bgr_m[0],bgr_m[1],bgr_m[2])
+    cv.imshow("high-contrast-butterfly",cv.convertScaleAbs(result))
+    cv.waitKey(0)
+    cv.destroyAllWindows()
+
+def draw_demo():
+    canvas=np.zeros((512,512,3),dtype=np.uint8)
+
+    # cv.rectangle(canvas,(100,100),(300,300),(0,0,255),2,8)
+    # cv.circle(canvas,(250,250),50,(255,0,0),4,cv.LINE_8)
+    # cv.line(canvas,(100,100),(300,300),(0,255,0),2,8)
+    # cv.putText(canvas,"OpenCV-Python",(100,100),cv.FONT_HERSHEY_SIMPLEX,1.0,(255,0,255))
+    # cv.imshow("canvas",canvas)
+    # cv.waitKey(0)
+
+    # 动态合理显示文本区域
+    font_color=(140,199,0)
+    cv.rectangle(canvas,(100,100),(300,300),font_color,2,8)
+    label_txt="OpenCV-Python"
+    font=cv.FONT_HERSHEY_SIMPLEX
+    font_scale=0.5
+    thickness=1
+    (fw,uph),dh=cv.getTextSize(label_txt,font,font_scale,thickness)
+    cv.rectangle(canvas,(100,100-uph-dh),(100+fw,100),(255,255,255),-1,8)
+    cv.putText(canvas,label_txt,(100,100-dh),font,font_scale,(255,0,255),thickness)
+    cv.imshow("canvas",canvas)
+    cv.waitKey(0)
+
+    cv.waitKey(0)
+    cv.destroyAllWindows()
+
+def random_demo():
+    canvas=np.zeros((512,512,3),dtype=np.uint8)
+    # random draw
+    while True:
+        b,g,r=np.random.randint(0,256,size=3)
+        x1=np.random.randint(0,512)
+        x2=np.random.randint(0,512)
+        y1=np.random.randint(0,512)
+        y2=np.random.randint(0,512)
+        cv.rectangle(canvas,(x1,y1),(x2,y2),(int(b),int(g),int(r)),-1,8)
+        cv.imshow("canvas",canvas)
+        c=cv.waitKey(50)
+        if c==27:
+            break
+
+        # reset background 每一次都会清除已随机生成的矩形,将其设置为黑色，没有这行代码则会持续生成，不会清除
+        #cv.rectangle(canvas,(0,0),(512,512),(0,0,0),-1,8)
+
+    cv.randn(canvas,(120,100,140),(30,50,20))
+    cv.imshow("noise image",canvas)
+    cv.waitKey(0)
+    cv.destroyAllWindows()
+
+
+
 
 if __name__ == '__main__':
-   channel_splits()
+   random_demo()

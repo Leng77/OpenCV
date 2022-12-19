@@ -1,0 +1,317 @@
+<ul>
+<li><a href="#图像统计信息">图像统计信息</a>
+<ul>
+<li><a href="#opencv函数支持">OpenCV函数支持</a></li>
+<li><a href="#代码操作演示">代码操作演示:</a></li>
+</ul></li>
+<li><a href="#图像几何形状绘制">图像几何形状绘制</a>
+<ul>
+<li><a href="#几何形状-函数">几何形状-函数</a></li>
+<li><a href="#文本绘制">文本绘制</a></li>
+<li><a href="#计算文本区域大小">计算文本区域大小</a></li>
+<li><a href="#代码操作演示-1">代码操作演示</a></li>
+</ul></li>
+<li><a href="#随机数与随机颜色">随机数与随机颜色</a>
+<ul>
+<li><a href="#python中的随机函数">Python中的随机函数</a></li>
+<li><a href="#随机噪声图">随机噪声图</a></li>
+<li><a href="#代码操作演示-2">代码操作演示</a></li>
+</ul></li>
+<li><a href="#多边形填充与绘制">多边形填充与绘制</a></li>
+</ul>
+<h1 id="图像统计信息">图像统计信息</h1>
+<h2 id="opencv函数支持">OpenCV函数支持</h2>
+<blockquote>
+<ul>
+<li>cv.mean(src[, mask] ) -&gt;retval</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>cv.meanStdDev(src[, mean[, stddev[, mask]]]) -&gt;mean, stddev</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>cv.minMaxLoc(src[, mask]) -&gt;minVal, maxVal, minLoc, maxLoc</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>src表示输入图像,mask表示计算区域</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>mean, stddev, minVal, maxVal分别表示均值，标准方差，最小与最大</li>
+</ul>
+</blockquote>
+<h2 id="代码操作演示">代码操作演示:</h2>
+<figure>
+<img src="../data/contrast.png" alt="contrast" />
+<figcaption aria-hidden="true">contrast</figcaption>
+</figure>
+<h1 id="图像几何形状绘制">图像几何形状绘制</h1>
+<h2 id="几何形状-函数">几何形状-函数</h2>
+<blockquote>
+<ul>
+<li>相关函数cv.line()、cv.circle()、cv.rectangle()、cv.ellipse() 
+<font color="#dd0000">椭圆</font>cv.putText()</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>相关参数解释：</li>
+</ul>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>img表示输入图像</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>color表示颜色，如(255, 0,0)表示蓝色</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>thickness表示线宽, 大于0表示绘制，小于0表示填充</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>lineType表示渲染模式, 默认LINE_8, LINE_AA表示反锯齿</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<ul>
+<li>cv.rectangle(canvas,(100,100),(300,300),(0,0,255),2,8)  
+<font color="#dd0000">矩形图像绘制</font></li>
+</ul>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>canvas代表图像</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>(100,100)与(300,300)代表左上右下坐标</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>(0,0,255)代表颜色</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>2代表线条宽度(负数代表填充)</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>8是线性,默认取8</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<ul>
+<li>cv.circle(canvas,(250,250),50,(255,0,0),4,cv.LINE_8)  
+<font color="#dd0000">圆形图像绘制</font></li>
+</ul>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>canvas代表图像</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>(250,250)代表圆心坐标</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>50代表半径</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>(255,0,0)代表颜色</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>4代表线条宽度(负数代表填充)</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>cv.LINE_8是线条的类型。可以取8，4，CV_AA三个值,分别代表8邻接连接线，4邻接连接线和反锯齿连接线。默认值为8邻接</li>
+</ul>
+</blockquote>
+</blockquote>
+<h2 id="文本绘制">文本绘制</h2>
+<blockquote>
+<ul>
+<li>putText 默认只支持英文</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>org表示文字起始坐标点</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>fontFace表示字体类型</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>fontScale表示字体大小</li>
+</ul>
+</blockquote>
+<h2 id="计算文本区域大小">计算文本区域大小</h2>
+<blockquote>
+<p>函数计算文本区域大小函数</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li><font color="#dd0000">(fw,uph),dh=cv.getTextSize(text,fontFace,font_scale,thickness)</font></li>
+</ul>
+</blockquote>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>text, # 表示文本信息</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>fontFace, # 表示字体类型</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>fontScale, # 表示字体大小</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>thickness # 表示线宽</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>返回文本信息区域大小，与字体的基线baseline位置</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h2 id="代码操作演示-1">代码操作演示</h2>
+<p><img src="../data/canvas.png" alt="canvas" /> <img
+src="../data/auto_canvas.png" alt="auto_canvas" /></p>
+<h1 id="随机数与随机颜色">随机数与随机颜色</h1>
+<h2 id="python中的随机函数">Python中的随机函数</h2>
+<blockquote>
+<p>Numpy中的随机函数</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>random.randint(low, high=None, size=None, dtype=int)</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>Low表低值，high表示高值，size表示维度，dtype表示类型</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>np.random.randint(0, 256)表示产生0~255随机数，类型是int</li>
+</ul>
+</blockquote>
+</blockquote>
+<h2 id="随机噪声图">随机噪声图</h2>
+<blockquote>
+<p>cv.randn(dst, mean, stddev)</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>生成目标图像dst</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>噪声均值mean</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>噪声方差stddev</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>cv.randn(canvas, (40, 200, 140), (10, 50, 10))</li>
+</ul>
+</blockquote>
+</blockquote>
+<h2 id="代码操作演示-2">代码操作演示</h2>
+<p><img src="../data/random.png" alt="random" /> <img
+src="../data/noise.png" alt="random" /></p>
+<h1 id="多边形填充与绘制">多边形填充与绘制</h1>
