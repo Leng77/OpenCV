@@ -258,8 +258,36 @@ def random_demo():
     cv.waitKey(0)
     cv.destroyAllWindows()
 
+def poly_demo():
+    canvas=np.zeros((512,512,3),dtype=np.uint8)
+    pts=[]
+    pts.append((100,100))
+    pts.append((200,50))
+    pts.append((280,100))
+    pts.append((290,300))
+    pts.append((50,300))
+    pts=np.asarray(pts,dtype=np.int32)
+    print(pts.shape)
+
+    pts2=[]
+    pts2.append((300,300))
+    pts2.append((400,250))
+    pts2.append((500,300))
+    pts2.append((500,500))
+    pts2.append((250,500))
+    pts2=np.asarray(pts2,dtype=np.int32)
+    print(pts2.shape)
+
+    cv.polylines(canvas,[pts,pts2],True,(0,255,255),2,8)
+    cv.fillPoly(canvas,[pts,pts2],(0,0,255),8,0)
+    cv.imshow("poly_demo",canvas)
+    cv.waitKey(0)
+    cv.destroyAllWindows()
+
+
+
 
 
 
 if __name__ == '__main__':
-   random_demo()
+   poly_demo()

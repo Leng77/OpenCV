@@ -17,7 +17,12 @@
 <li><a href="#随机噪声图">随机噪声图</a></li>
 <li><a href="#代码操作演示-2">代码操作演示</a></li>
 </ul></li>
-<li><a href="#多边形填充与绘制">多边形填充与绘制</a></li>
+<li><a href="#多边形填充与绘制">多边形填充与绘制</a>
+<ul>
+<li><a href="#多边形绘制函数">多边形绘制函数</a></li>
+<li><a href="#点集支持">点集支持</a></li>
+<li><a href="#代码操作演示-3">代码操作演示</a></li>
+</ul></li>
 </ul>
 <h1 id="图像统计信息">图像统计信息</h1>
 <h2 id="opencv函数支持">OpenCV函数支持</h2>
@@ -315,3 +320,100 @@ src="../data/auto_canvas.png" alt="auto_canvas" /></p>
 <p><img src="../data/random.png" alt="random" /> <img
 src="../data/noise.png" alt="random" /></p>
 <h1 id="多边形填充与绘制">多边形填充与绘制</h1>
+<h2 id="多边形绘制函数">多边形绘制函数</h2>
+<blockquote>
+<ul>
+<li>填充多边形</li>
+</ul>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>cv.fillPoly(img, pts, color[, lineType[, shift[, offset]]])
+-&gt;img</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<ul>
+<li>绘制多边形</li>
+</ul>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>cv.polylines(img, pts, isClosed, color[, thickness[, lineType[,
+shift]]] ) -&gt;img</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<ul>
+<li>pts表示一个或者多个点集</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>color表示颜色</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>thickness表示线宽，注意：必须大于0</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>lineType 表示渲染方式</li>
+</ul>
+</blockquote>
+<h2 id="点集支持">点集支持</h2>
+<blockquote>
+<p>pts表示一个或者多个点集</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>pts = []</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>pts.append((100, 100))</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>pts.append((200, 50))</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>pts.append((280, 100))</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>pts.append((290, 300))</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>pts.append((50, 300))</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>pts = np.asarray(pts, dtype=np.int32)</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>print(pts.shape)</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>要求：必须是CV_32S, 对应np.int32</li>
+</ul>
+</blockquote>
+<h2 id="代码操作演示-3">代码操作演示</h2>
+<figure>
+<img src="../data/poly.png" alt="poly" />
+<figcaption aria-hidden="true">poly</figcaption>
+</figure>
