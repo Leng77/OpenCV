@@ -285,9 +285,147 @@ def poly_demo():
     cv.destroyAllWindows()
 
 
+b1=cv.imread("C://Users//86198\Desktop//DataWhale//OpenCV//opencv//data//butterfly.jpg")
+img=np.copy(b1)
+x1=-1
+y1=-1
+x2=-1
+y2=-2
+def mouse_drawing(event,x,y,flags,param):
+    global x1,x2,y1,y2
+    if event==cv.EVENT_LBUTTONDOWN:
+        x1=x
+        y1=y
+    if event==cv.EVENT_MOUSEMOVE:
+        if x1<0 or y1 <0:
+            return
+        x2=x
+        y2=y
+        dx=x2-x1
+        dy=y2-y1
+        #if dx>0 and dy>0:
+            # 清除每次画的图形
+            #b1[:,:,:]=img[:,:,:]
+            #cv.rectangle(b1,(x1,y1),(x2,y2),(0,0,255),2,8,0)
+            #cv.circle(b1,(x1,y1),int((x**2+y**2)**0.5),(0,0,255),4,cv.LINE_8)
+        cv.line(b1,(x1,y1),(x2,y2),(0,0,255),2,8,0)
+    if event==cv.EVENT_LBUTTONUP:
+        x2=x
+        y2=y
+        dx=x2-x1
+        dy=y2-y1
+        #if dx>0 and dy>0:
+            # 清除每次画的图形
+            #b1[:,:,:]=img[:,:,:]
+            #cv.rectangle(b1,(x1,y1),(x2,y2),(0,0,255),2,8,0)
+            #cv.circle(b1,(x1,y1),int((x**2+y**2)**0.5),(0,0,255),4,cv.LINE_8)
+        # 为下一次绘制做好准备
+        cv.line(b1,(x1,y1),(x2,y2),(0,0,255),2,8,0)
+        x1=-1
+        x2=-1
+        y1=-1
+        y2=-1
+
+def mouse_demo():
+    cv.namedWindow("mouse_demo",cv.WINDOW_AUTOSIZE)
+    cv.setMouseCallback("mouse_demo",mouse_drawing)
+    while True:
+        cv.imshow("mouse_demo",b1)
+        c=cv.waitKey(10)
+        if c == 27:
+            break
+    cv.destroyAllWindows()
+    
+
+def norm_demo():
+    image_uint8=cv.imread("C://Users//86198\Desktop//DataWhale//OpenCV//opencv//data//butterfly.jpg")
+    cv.imshow("image_uint8",image_uint8)
+    img_f32=np.float32(image_uint8)
+    cv.imshow("img_f32",img_f32)
+    cv.normalize(img_f32,img_f32,1,0,cv.NORM_MINMAX)
+    cv.imshow("norm_imgf32",img_f32)
+    cv.waitKey(0)
+    cv.destroyAllWindows()
+
+    cv.namedWindow("norm_demo",cv.WINDOW_AUTOSIZE)
+    cv.createTrackbar("normtype","norm_demo",0,3,trackbar_callback)
+    while True:
+        gray=cv.cvtColor(image_uint8,cv.COLOR_RGB2GRAY)
+        dst=np.float32(gray)
+        pos=cv.getTrackbarPos("normtype","norm_demo")
+        if pos == 0:
+            cv.normalize(dst,dst,1,0,cv.NORM_MINMAX)
+        if pos == 1:
+            cv.normalize(dst,dst,1,0,cv.NORM_L1)
+        if pos == 2:            
+            cv.normalize(dst,dst,1,0,cv.NORM_L2)            
+        if pos == 3:
+            cv.normalize(dst,dst,1,0,cv.NORM_INF)        
+        cv.imshow("norm_demo",dst)
+        c=cv.waitKey(50)
+        if c ==27:
+            break
+    cv.destroyAllWindows()
+
+
+def affine_demo():
+    image=cv.imread("C://Users//86198\Desktop//DataWhale//OpenCV//opencv//data//lena.jpg")
+    h,w,c=image.shape
+    cx=int(w/2)
+    cy=int(h/2)
+    cv.imshow("image",image)
+
+    M=np.zeros((2,3),dtype=np.float32)
+    M[0,0]=.7
+    M[1,1]=.7
+    M[0,2]=0
+    M[1,2]=0
+    print("(M(2×3)=\n",M)
+    dst=cv.warpAffine(image,M,(int(w*.7),int(h*.7)))
+    cv.imshow("rescale_demo",dst)
+    
+    # 获取旋转矩阵，degree>0表示逆时针旋转，原点在左上角
+    M=cv.getRotationMatrix2D((w/2,h/2),45.0,1.0)
+    dst=cv.warpAffine(image,M,(w,h))
+    cv.imshow("rotate_demo",dst)
+
+    dst=cv.flip(image,0) # 第二个参数等零表示上下翻转，等1表示左右翻转
+    cv.imshow("flip_demo",dst)
+
+    cv.waitKey(0)
+    cv.destroyAllWindows()
+
+
+def video_demo():
+    cap=cv.VideoCapture("C://Users//86198//Desktop//DataWhale//OpenCV//opencv//data//vtest.avi")
+    # query video file metadata
+    fps=cap.get(cv.CAP_PROP_FPS)
+    frame_w=cap.get(cv.CAP_PROP_FRAME_WIDTH)
+    frame_h=cap.get(cv.CAP_PROP_FRAME_HEIGHT)
+    print(fps,frame_w,frame_h)
+    #encode mode
+    #fourcc=cv.VideoWriter_fourcc(*"vp09")
+    fourcc=cap.get(cv.CAP_PROP_FOURCC) # 编码格式
+    #create Video writer
+    writer=cv.VideoWriter("C://Users//86198//Desktop//DataWhale//OpenCV//opencv//data//output.mp4",int(fourcc),fps,(int(frame_w),int(frame_h)))
+    while True:
+        ret,frame=cap.read()
+        if ret is not True:
+            break
+        writer.write(frame)
+        cv.imshow("frame",frame)
+        c=cv.waitKey(1)
+        if c == 27:
+            break
+
+    cap.release()
+    writer.release()
+
+    cv.waitKey(0)
+    cv.destroyAllWindows()
 
 
 
 
 if __name__ == '__main__':
-   poly_demo()
+   video_demo()
