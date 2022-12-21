@@ -1,0 +1,342 @@
+<ul>
+<li><a href="#鼠标操作与响应">鼠标操作与响应</a>
+<ul>
+<li><a href="#鼠标事件与回调">鼠标事件与回调</a></li>
+<li><a
+href="#鼠标操作回调函数与其参数">鼠标操作回调函数与其参数</a></li>
+<li><a href="#代码操作演示">代码操作演示</a></li>
+</ul></li>
+<li><a href="#图像像素类型转换与归一化">图像像素类型转换与归一化</a>
+<ul>
+<li><a href="#归一化函数">归一化函数</a></li>
+<li><a href="#数据转换">数据转换</a></li>
+<li><a href="#代码操作演示-1">代码操作演示</a></li>
+</ul></li>
+<li><a href="#图像几何变换">图像几何变换</a>
+<ul>
+<li><a href="#几何变换支持函数">几何变换支持函数</a></li>
+<li><a href="#获得旋转矩阵">获得旋转矩阵</a></li>
+<li><a href="#翻转与特殊角度转换">翻转与特殊角度转换</a></li>
+<li><a href="#代码操作演示-2">代码操作演示</a></li>
+</ul></li>
+<li><a href="#视频读写处理">视频读写处理</a>
+<ul>
+<li><a href="#视频标准与格式">视频标准与格式</a></li>
+<li><a href="#视频读取函数">视频读取函数</a></li>
+<li><a href="#查询视频属性">查询视频属性</a></li>
+<li><a href="#视频文件保存">视频文件保存</a></li>
+<li><a href="#代码操作演示-3">代码操作演示</a></li>
+</ul></li>
+</ul>
+<h1 id="鼠标操作与响应">鼠标操作与响应</h1>
+<h2 id="鼠标事件与回调">鼠标事件与回调</h2>
+<blockquote>
+<ul>
+<li>EVENT_LBUTTONDOWN #鼠标左键按下</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>EVENT_MOUSEMOVE #鼠标移动</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>EVENT_LBUTTONUP #鼠标左键弹起</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>其他相关鼠标按键事件可去查</li>
+</ul>
+</blockquote>
+<h2 id="鼠标操作回调函数与其参数">鼠标操作回调函数与其参数</h2>
+<blockquote>
+<ul>
+<li>def mouse_drawing(event,x,y,flags,Userdata):</li>
+</ul>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>int event, int x, int y, int flags, void *userdata</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>event表示鼠标事件</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>(x, y)表示当前鼠标位置</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>flags表示鼠标状态</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>Userdata表示回调用户数据，可以为空</li>
+</ul>
+</blockquote>
+</blockquote>
+<h2 id="代码操作演示">代码操作演示</h2>
+<blockquote>
+<p>下面是用鼠标绘制直线，不清除已绘制的直线</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<figure>
+<img src="../data/mouse_demo.png" alt="mouse" />
+<figcaption aria-hidden="true">mouse</figcaption>
+</figure>
+</blockquote>
+</blockquote>
+<h1 id="图像像素类型转换与归一化">图像像素类型转换与归一化</h1>
+<h2 id="归一化函数">归一化函数</h2>
+<blockquote>
+<p>cv.normalize( src, dst[, alpha[, beta[, norm_type[, dtype[, mask]]]]]
+) -&gt; dst</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>src表示输入图像, dst表示输出图像</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>alpha, beta 默认是1， 0，是归一化的区间值</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>norm_type默认是NORM_L2,</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>norm_type常用是NORM_MINMAX</li>
+</ul>
+</blockquote>
+</blockquote>
+<h2 id="数据转换">数据转换</h2>
+<blockquote>
+<ul>
+<li>Imread读入默认是uint8,
+转换为float32,通过imshow显示之前，必须归一化到[0~1]之间</li>
+</ul>
+</blockquote>
+<h2 id="代码操作演示-1">代码操作演示</h2>
+<p><img src="../data/norm.png" alt="norm" /> <img
+src="../data/norm_minmax.png" alt="norm_minmax" /> <img
+src="../data/norm_inf.png" alt="norm_inf" /></p>
+<h1 id="图像几何变换">图像几何变换</h1>
+<h2 id="几何变换支持函数">几何变换支持函数</h2>
+<blockquote>
+<p>cv.warpAffine(src, M, dsize[, dst[, flags[, borderMode[,
+borderValue]]]] ) -&gt; dst</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>src表示输入图像</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>M 表示2x3变换矩阵</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>dsize表示目标图像dst的大小</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>支持平移变换、放缩变换、旋转变换</li>
+</ul>
+</blockquote>
+</blockquote>
+<h2 id="获得旋转矩阵">获得旋转矩阵</h2>
+<blockquote>
+<p>旋转矩阵获取cv.getRotationMatrix2D</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>Center表示旋转中心</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>angle表示度数，大于零表示逆时针旋转</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>scale表示放缩尺度大</li>
+</ul>
+</blockquote>
+</blockquote>
+<h2 id="翻转与特殊角度转换">翻转与特殊角度转换</h2>
+<blockquote>
+<ul>
+<li>cv.flip(src, flipCode[, dst] ) -&gt;dst</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>cv.rotate(src, rotateCode[, dst] ) -&gt; dst</li>
+</ul>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>src表示输入图像</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>flipCode支持0水平、1垂直，-1对角线翻转，</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>rotateCode只支持旋转90°，180°，270°</li>
+</ul>
+</blockquote>
+</blockquote>
+<h2 id="代码操作演示-2">代码操作演示</h2>
+<figure>
+<img src="../data/affine.png" alt="affine" />
+<figcaption aria-hidden="true">affine</figcaption>
+</figure>
+<h1 id="视频读写处理">视频读写处理</h1>
+<h2 id="视频标准与格式">视频标准与格式</h2>
+<h2 id="视频读取函数">视频读取函数</h2>
+<blockquote>
+<figure>
+<img src="../data/video_datea.png" alt="video_data" />
+<figcaption aria-hidden="true">video_data</figcaption>
+</figure>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>filename表示视频文件</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>Index表示USB摄像头或者web camera的索引</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>apiPreference = CAP_ANY意思自动决定第三方视频库如： cv.CAP_FFMPEG，
+cv.CAP_DSHOW</li>
+</ul>
+</blockquote>
+</blockquote>
+<h2 id="查询视频属性">查询视频属性</h2>
+<blockquote>
+<ul>
+<li>VideoCaput的get方法: (….).get(以下参数)</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>cv.CAP_PROP_FRAME_WIDT #宽</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>cv.CAP_PROP_FRAME_HEIGHT #高</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>cv.CAP_PROP_FPS #帧率</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>cv.CAP_PROP_FOURCC #编码格式</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>cv.CAP_PROP_FRAME_COUNT</li>
+</ul>
+</blockquote>
+<h2 id="视频文件保存">视频文件保存</h2>
+<blockquote>
+<p>cv.VideoWriter(</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>filename, 保存文件名称</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>fourcc, 编码方式</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>fps, 帧率</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>frameSize 视频帧大小,必须与实现大小相符</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>[, isColor] ) -&gt; <VideoWriter object></li>
+</ul>
+</blockquote>
+<h2 id="代码操作演示-3">代码操作演示</h2>
+<figure>
+<img src="../data/video.png" alt="video" />
+<figcaption aria-hidden="true">video</figcaption>
+</figure>
