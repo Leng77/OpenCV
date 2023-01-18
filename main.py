@@ -1,5 +1,6 @@
 import cv2 as cv
 import numpy as np
+from matplotlib import pyplot as plt
 def color_space_demo():
     image=cv.imread("C://Users//86198//Desktop//DataWhale//OpenCV//opencv//data//lena.jpg")
     cv.imshow("lena",image)
@@ -66,7 +67,7 @@ def trackbar_callback(pos):
     print(pos)
 
 def trackbar_demo():
-    image=cv.imread("C://Users//86198\Desktop//DataWhale//OpenCV//opencv//data//butterfly.jpg")
+    image=cv.imread("C://Users//86198\Desktop//DataWhale//OpenCV//opencv//data//lena.jpg")
     cv.namedWindow("trackbar_demo",cv.WINDOW_KEEPRATIO)
     cv.createTrackbar("lightness","trackbar_demo",0,200,trackbar_callback)
     cv.imshow("trackbar_demo",image)
@@ -291,6 +292,9 @@ x1=-1
 y1=-1
 x2=-1
 y2=-2
+
+
+
 def mouse_drawing(event,x,y,flags,param):
     global x1,x2,y1,y2
     if event==cv.EVENT_LBUTTONDOWN:
@@ -305,10 +309,10 @@ def mouse_drawing(event,x,y,flags,param):
         dy=y2-y1
         #if dx>0 and dy>0:
             # 清除每次画的图形
-            #b1[:,:,:]=img[:,:,:]
-            #cv.rectangle(b1,(x1,y1),(x2,y2),(0,0,255),2,8,0)
+        b1[:,:,:]=img[:,:,:]
+        cv.rectangle(b1,(x1,y1),(x2,y2),(0,0,255),2,8,0)
             #cv.circle(b1,(x1,y1),int((x**2+y**2)**0.5),(0,0,255),4,cv.LINE_8)
-        cv.line(b1,(x1,y1),(x2,y2),(0,0,255),2,8,0)
+        #cv.line(b1,(x1,y1),(x2,y2),(0,0,255),2,8,0)
     if event==cv.EVENT_LBUTTONUP:
         x2=x
         y2=y
@@ -317,10 +321,10 @@ def mouse_drawing(event,x,y,flags,param):
         #if dx>0 and dy>0:
             # 清除每次画的图形
             #b1[:,:,:]=img[:,:,:]
-            #cv.rectangle(b1,(x1,y1),(x2,y2),(0,0,255),2,8,0)
+        cv.rectangle(b1,(x1,y1),(x2,y2),(0,0,255),2,8,0)
             #cv.circle(b1,(x1,y1),int((x**2+y**2)**0.5),(0,0,255),4,cv.LINE_8)
         # 为下一次绘制做好准备
-        cv.line(b1,(x1,y1),(x2,y2),(0,0,255),2,8,0)
+        #cv.line(b1,(x1,y1),(x2,y2),(0,0,255),2,8,0)
         x1=-1
         x2=-1
         y1=-1
@@ -389,7 +393,7 @@ def affine_demo():
     dst=cv.warpAffine(image,M,(w,h))
     cv.imshow("rotate_demo",dst)
 
-    dst=cv.flip(image,0) # 第二个参数等零表示上下翻转，等1表示左右翻转
+    dst=cv.flip(image,1) # 第二个参数等零表示上下翻转，等1表示左右翻转
     cv.imshow("flip_demo",dst)
 
     cv.waitKey(0)
@@ -424,8 +428,84 @@ def video_demo():
     cv.waitKey(0)
     cv.destroyAllWindows()
 
+# xwh NLP作业
+"""def sum():
+    sum11=np.zeros((512,512,3),dtype=np.uint8)
+    sum=0
+    for i in range(1,101):
+        sum+=i
+    label_txt="1+2+3+...+={}".format(sum)
+    cv.putText(sum11,label_txt,(100,256),cv.FONT_HERSHEY_SIMPLEX,1.0,(255,255,255))
+    cv.imshow("sum11",sum11)
+    cv.waitKey(0)
+    cv.destroyAllWindows()"""
 
+def image_hist():
+    image=cv.imread("C://Users//86198//Desktop//DataWhale//OpenCV//opencv//data//butterfly.jpg")
+    cv.imshow("input",image)
+    color =('blue','green','red')
+    for i,color in enumerate(color):
+        hist=cv.calcHist([image],[i],None,[32],[0,256])
+        print(hist.dtype)
+        plt.plot(hist,color=color)
+        plt.xlim([0,32])
+    plt.show()
+    cv.waitKey(0)
+    cv.destroyAllWindows()
+
+
+def eq_demo():
+    image=cv.imread("C://Users//86198//Desktop//DataWhale//OpenCV//opencv//data//lena.jpg",cv.IMREAD_GRAYSCALE)
+    cv.imshow("input",image)
+    hist=cv.calcHist([image],[0],None,[32],[0,256])
+    print(hist.dtype)
+    plt.plot(hist,color='gray')
+    plt.xlim([0,32])
+    plt.show()
+    cv.waitKey(0)
+
+    eqimg=cv.equalizeHist(image)
+    cv.imshow("eq",eqimg)
+    hist=cv.calcHist([eqimg],[0],None,[32],[0,256])
+    print(hist.dtype)
+    plt.plot(hist,color='gray')
+    plt.xlim([0,32])
+    plt.show()
+    cv.waitKey(0)
+    cv.destroyAllWindows()
+
+
+def conv_demo():
+    image=cv.imread("C://Users//86198//Desktop//DataWhale//OpenCV//opencv//data//lena.jpg")
+    dst=np.copy(image)
+    cv.imshow("input",image)
+    h,w,c=image.shape
+    # 手动实现卷积
+    for row in range(1,h-1,1):
+        for col in range(1,w-1,1):
+            m=cv.mean(image[row-2:row+2,col-2:col+2])
+            dst[row,col]=(int(m[0]),int(m[1]),int(m[2]))
+    cv.imshow("convolution-demo",dst)
+
+    # 函数实现卷积，如果（5，5）改为（1，25），则为垂直方向卷积，（25，1）为水平方向卷积
+    blured=cv.blur(image,(25,1),anchor=(-1,-1))
+    cv.imshow("blur-demo",blured)
+
+    cv.waitKey(0)
+    cv.destroyAllWindows()
+
+
+def gaussian_blur_demo():
+    image=cv.imread("C://Users//86198//Desktop//DataWhale//OpenCV//opencv//data//lena.jpg")
+    cv.imshow("input",image)
+    g1=cv.GaussianBlur(image,(0,0),15)
+    g2=cv.GaussianBlur(image,(15,15),15)
+    cv.imshow("GaussianBlur-demo1",g1)
+    cv.imshow("GaussianBlur-demo2",g2)
+
+    cv.waitKey(0)
+    cv.destroyAllWindows()
 
 
 if __name__ == '__main__':
-   video_demo()
+    gaussian_blur_demo()

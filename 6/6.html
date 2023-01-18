@@ -1,0 +1,278 @@
+<ul>
+<li><a href="#图像直方图">图像直方图</a>
+<ul>
+<li><a href="#图像直方图定义">图像直方图定义</a></li>
+<li><a href="#直方图函数">直方图函数</a></li>
+<li><a href="#代码演练">代码演练</a></li>
+</ul></li>
+<li><a href="#图像直方图均衡化">图像直方图均衡化</a>
+<ul>
+<li><a href="#直方图均衡化">直方图均衡化</a></li>
+<li><a href="#直方图均衡化函数">直方图均衡化函数</a></li>
+<li><a href="#代码演练-1">代码演练</a></li>
+</ul></li>
+<li><a href="#图像卷积操作">图像卷积操作</a>
+<ul>
+<li><a href="#图像卷积定义">图像卷积定义</a>
+<ul>
+<li><a href="#卷积的边缘填充">卷积的边缘填充</a></li>
+</ul></li>
+<li><a href="#卷积函数">卷积函数</a></li>
+<li><a href="#代码演练-2">代码演练</a></li>
+</ul></li>
+<li><a href="#高斯模糊">高斯模糊</a>
+<ul>
+<li><a href="#高斯模糊-1">高斯模糊</a></li>
+<li><a href="#函数解释">函数解释</a></li>
+<li><a href="#代码演练-3">代码演练</a></li>
+</ul></li>
+</ul>
+<h1 id="图像直方图">图像直方图</h1>
+<h2 id="图像直方图定义">图像直方图定义</h2>
+<figure>
+<img src="../data/图像直方图定义.png" alt="图像直方图定义" />
+<figcaption aria-hidden="true">图像直方图定义</figcaption>
+</figure>
+<h2 id="直方图函数">直方图函数</h2>
+<blockquote>
+<ul>
+<li>calcHist(images, channels, mask, histSize, ranges[, hist[,
+accumulate]]) -&gt; hist</li>
+</ul>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>images表示图像</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>channels表示通道</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>mask 默认None</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>histSzie表示bin的个数</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>ranges表示通道的取值范围</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>hist = cv.calcHist([image], [i], None, [32], [0, 256])</li>
+</ul>
+</blockquote>
+</blockquote>
+</blockquote>
+<h2 id="代码演练">代码演练</h2>
+<figure>
+<img src="../data/image_hist.png" alt="image_hist" />
+<figcaption aria-hidden="true">image_hist</figcaption>
+</figure>
+<h1 id="图像直方图均衡化">图像直方图均衡化</h1>
+<h2 id="直方图均衡化">直方图均衡化</h2>
+<ul>
+<li>必须是灰度图像！！！</li>
+</ul>
+<figure>
+<img src="../data/直方图均衡化.png" alt="图像直方图均衡化" />
+<figcaption aria-hidden="true">图像直方图均衡化</figcaption>
+</figure>
+<h2 id="直方图均衡化函数">直方图均衡化函数</h2>
+<blockquote>
+<ul>
+<li>cv.equalizeHist(src[, dst]) -&gt; dst</li>
+</ul>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>src必须是八位单通道图像</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>dst返回结果图像，类型与src保持一致</li>
+</ul>
+</blockquote>
+</blockquote>
+<h2 id="代码演练-1">代码演练</h2>
+<figure>
+<img src="../data/eq.png" alt="eq" />
+<figcaption aria-hidden="true">eq</figcaption>
+</figure>
+<h1 id="图像卷积操作">图像卷积操作</h1>
+<h2 id="图像卷积定义">图像卷积定义</h2>
+<figure>
+<img src="../data/图像卷积定义.png" alt="图像卷积定义" />
+<figcaption aria-hidden="true">图像卷积定义</figcaption>
+</figure>
+<blockquote>
+<p>各点各自相乘后求平均值后的值，是该卷积核对应矩阵中心点的值，从左往右，从上往下各卷积一遍，卷积结果是中心都得到卷积，但边缘并没办法进行卷积操作</p>
+</blockquote>
+<figure>
+<img src="../data/卷积核跟锚点位置.png" alt="卷积核跟锚点位置" />
+<figcaption aria-hidden="true">卷积核跟锚点位置</figcaption>
+</figure>
+<h3 id="卷积的边缘填充">卷积的边缘填充</h3>
+<blockquote>
+<ul>
+<li>边缘处理，边缘填充的方式</li>
+</ul>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>cv.BORDER_DEFAULT gfedcb|abcdefgh|gfedcba</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>cv.BORDER_WRAP cdefgh|abcdefgh|abcdefg</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>cv.BORDER_CONSTANT iiiiii|abcdefgh|iiiiiii</li>
+</ul>
+</blockquote>
+</blockquote>
+<h2 id="卷积函数">卷积函数</h2>
+<blockquote>
+<ul>
+<li>cv.blur( src, ksize[, dst[, anchor[, borderType]]]) -&gt; dst</li>
+</ul>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>src表示输入图像 CV_8U, CV_32F or CV_64F</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>Ksize卷积核大小</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>anchor锚定位置(anchor=(-1,-1)代表锚点位置在卷积核中心)</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>borderType边缘处理方式</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>blured=cv.blur(image,(5,5))</li>
+</ul>
+</blockquote>
+</blockquote>
+</blockquote>
+<h2 id="代码演练-2">代码演练</h2>
+<figure>
+<img src="../data/conv.png" alt="conv" />
+<figcaption aria-hidden="true">conv</figcaption>
+</figure>
+<h1 id="高斯模糊">高斯模糊</h1>
+<h2 id="高斯模糊-1">高斯模糊</h2>
+<figure>
+<img src="../data/高斯模糊.png" alt="高斯模糊" />
+<figcaption aria-hidden="true">高斯模糊</figcaption>
+</figure>
+<blockquote>
+<ul>
+<li>简单来说，高斯模糊就是卷积核系数权重不同，越靠近中间系数越大</li>
+</ul>
+</blockquote>
+<h2 id="函数解释">函数解释</h2>
+<blockquote>
+<ul>
+<li>cv.GaussianBlur(src, ksize, sigmaX[, dst[, sigmaY[, borderType]]])
+-&gt;dst</li>
+</ul>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>ksize必须是正数而且是奇数</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>sigmaX高斯核函数X方向标准方差</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>sigmaY高斯核函数Y方向标准方差,默认0</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>表示跟sigmaX相同，</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>ksize为0表示从sigmaX计算生成ksize，</li>
+</ul>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<ul>
+<li>ksize大于0表示从ksize计算生成sigmaX，</li>
+</ul>
+</blockquote>
+</blockquote>
+<h2 id="代码演练-3">代码演练</h2>
+<figure>
+<img src="../data/GaussianBlur-demo.png" alt="高斯模糊" />
+<figcaption aria-hidden="true">高斯模糊</figcaption>
+</figure>
